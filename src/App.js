@@ -22,7 +22,8 @@ export default function App() {
   let engine;
   let world;
   let box;
-  const player = new Player(100,100,100,100);
+  let player; 
+  
   const land = new Land(0,800,800,50);
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth - 25, p5.windowHeight - 25).parent(
@@ -32,19 +33,20 @@ export default function App() {
         engine = Engine.create();
         world = engine.world;
         Engine.run(engine);
+        player = new Player(300, p5.height / 2,100,100);
         player.setup();
         land.setup()
-        World.add(world,[player.player,land.land]);
+        World.add(world,[player.player,land.land,land.land2]);
   }
 
   const draw = (p5) => {
    p5.background(255);
    player.display(p5);
-   land.display(p5)
+   land.display(p5,player);
   }
 
   function keyPressed(e) {
-
+         
   }
 
   function keyReleased(e) {
